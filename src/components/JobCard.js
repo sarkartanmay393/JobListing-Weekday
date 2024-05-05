@@ -4,11 +4,7 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import Chip from "@mui/material/Chip";
-import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import FlashOnIcon from "@mui/icons-material/FlashOn";
 import { Box, CircularProgress } from "@mui/material";
-import { common } from "@mui/material/colors";
 
 const JobCard = ({ job }) => {
   const [loading, setLoading] = useState(false);
@@ -43,7 +39,15 @@ const JobCard = ({ job }) => {
   };
 
   return (
-    <Card className="job-card" key={jdUid} square>
+    <Card
+      sx={{
+        boxShadow: "(0, 0, 0, 0) 0px 1px 4px 0px !important;",
+        border: "1px solid #e0e0e0",
+      }}
+      className="job-card"
+      key={jdUid}
+      square
+    >
       <CardContent className="job-card-content">
         <div className="job-card-content-header">
           <div className="flex" style={{ gap: "4px" }}>
@@ -104,7 +108,7 @@ const JobCard = ({ job }) => {
           </div> */}
         </div>
         <Box className="flex column job-card-content-content">
-          <Box className="flex column" sx={{ gap: "4px" }}>
+          <Box className="flex column" sx={{ gap: "8px" }}>
             <Box style={{ display: "flex", gap: "2px" }}>
               <img
                 src={logoUrl || "https://via.placeholder.com/40"}
@@ -147,7 +151,7 @@ const JobCard = ({ job }) => {
                 }}
               >
                 <Typography variant="body2" className="job-description">
-                  {`${jobDetailsFromCompany}...`}
+                  {`${jobDetailsFromCompany.substring(0, 180)}...`}
                   <Box className="fade-bottom" />
                 </Typography>
               </Box>

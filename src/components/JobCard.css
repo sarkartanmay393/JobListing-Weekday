@@ -1,17 +1,21 @@
 .job-card {
+  /* max-width: 300px; */
+  height: fit-content;
+  /* max-height: 460px; */
+
   padding: 0px;
   border-radius: 20px;
-  height: fit-content;
-  border: 1px solid #e0e0e0;
+
+  border: 0px solid #e0e0e0;
 }
 
 .job-card-content {
   padding: 16px 0px;
-  border: 1px solid black;
+  border: 0px solid black;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 16px;
+  gap: 24px;
 }
 
 .job-card-content-content {
@@ -30,8 +34,6 @@
   background: linear-gradient(to bottom, rgba(255, 255, 255, 0), white);
 }
 
-
-
 .job-card-logo {
   width: 40px;
   height: 40px;
@@ -45,47 +47,6 @@
   justify-content: center;
 
   border: 0px solid black;
-}
-
-
-.job-header {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 16px;
-}
-
-.company-info {
-  display: flex;
-  align-items: center;
-  margin-bottom: 8px;
-}
-
-.verified-icon {
-  color: green;
-  margin-left: 4px;
-}
-
-.job-description {
-  margin-top: 8px;
-  margin-bottom: 16px;
-}
-
-.view-job-button {
-  color: blue;
-  text-transform: none;
-  font-size: 0.875rem;
-  margin-left: 4px;
-}
-
-.apply-button {
-  margin-top: 16px;
-  background-color: #6ee7b7;
-  color: black;
-  font-weight: bold;
-}
-
-.apply-button .MuiButton-startIcon {
-  color: orange;
 }
 
 .job-card-chip {
