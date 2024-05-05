@@ -5,10 +5,10 @@ const Theme = () => {
     components: {},
     palette: {
       primary: {
-        main: "#1959d1",
+        main: "#83ecc4",
       },
       secondary: {
-        main: "#ffffff",
+        main: "#83ecc4",
       },
       text: {
         primary: common.black,
