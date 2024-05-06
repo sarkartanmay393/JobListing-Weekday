@@ -9,11 +9,11 @@
   border: 0px solid #e0e0e0;
 }
 
-@media (max-width: 768px) {
+/* @media (max-width: 768px) {
   .job-card {
-    max-width: none;
+    max-width: 100%;
   }
-}
+} */
 
 .job-card-content {
   border: 0px solid black;
