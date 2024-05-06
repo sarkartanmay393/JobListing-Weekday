@@ -10,7 +10,6 @@ import VerticalLine from "../VerticalLine";
 import SelectedOptions from "./SelectOptions";
 
 import "./MultipleSelect.css";
-import { TextField } from "@mui/material";
 
 export default function MultipleSelectChip({ name, label, multiple }) {
   const dispatch = useDispatch();
@@ -71,7 +70,9 @@ export default function MultipleSelectChip({ name, label, multiple }) {
 
   useEffect(() => {
     if (window && document) {
-      const selectInput = document.getElementById("select-input");
+      const selectInput = document.getElementById(
+        name.trim() + "-select-input"
+      );
       // const verticalLine = document.getElementById("verticalLine");
       if (selectInput) {
         if (!menuBoxRef.current) return;
@@ -82,7 +83,7 @@ export default function MultipleSelectChip({ name, label, multiple }) {
       //   verticalLine.style.height = selectInput.offsetHeight + "px";
       // }
     }
-  }, [open, selectedOptions.length]);
+  }, [name, open, selectedOptions.length]);
 
   return (
     <Box
@@ -125,7 +126,7 @@ export default function MultipleSelectChip({ name, label, multiple }) {
       </label>
       <Box
         name={name}
-        id="select-input"
+        id={name.trim() + "-select-input"}
         sx={{
           display: "flex",
           gap: 0.5,
@@ -269,7 +270,7 @@ export default function MultipleSelectChip({ name, label, multiple }) {
             overflowY: "auto",
           }}
         >
-          {SelectedOptions(name, handleMultiSelectChange)}
+          {SelectedOptions(name, handleMultiSelectChange, selectedOptions)}
         </Box>
       </Box>
     </Box>

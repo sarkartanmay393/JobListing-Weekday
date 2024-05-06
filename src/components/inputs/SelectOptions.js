@@ -1,10 +1,14 @@
 import React from "react";
 import MenuItem from "@mui/material/MenuItem";
 
-export default function SelectedOptions(name, handleMultiSelectChange) {
+export default function SelectedOptions(
+  name,
+  handleMultiSelectChange,
+  selectedOptions
+) {
   switch (name) {
     case "roles": {
-      const options = [
+      let options = [
         "Engineering*",
         "Frontend",
         "Backend",
@@ -15,6 +19,10 @@ export default function SelectedOptions(name, handleMultiSelectChange) {
         "Data Scientist",
         "QA",
       ];
+
+      if (typeof selectedOptions !== "string") {
+        options = options.filter((option) => !selectedOptions.includes(option));
+      }
 
       return options.map((option) => (
         <MenuItem
@@ -41,7 +49,12 @@ export default function SelectedOptions(name, handleMultiSelectChange) {
       ));
     }
     case "noOfEmployees": {
-      const options = ["0-10", "11-50", "51-200", "201-500", "501-1000"];
+      let options = ["0-10", "11-50", "51-200", "201-500", "501-1000"];
+      if (typeof selectedOptions !== "string") {
+        options = options.filter((option) => !selectedOptions.includes(option));
+      } else {
+        options = options.filter((option) => option !== selectedOptions);
+      }
       return options.map((option) => (
         <MenuItem
           key={option}
@@ -59,7 +72,12 @@ export default function SelectedOptions(name, handleMultiSelectChange) {
       ));
     }
     case "minExperience": {
-      const options = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
+      let options = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
+      if (typeof selectedOptions !== "string") {
+        options = options.filter((option) => !selectedOptions.includes(option));
+      } else {
+        options = options.filter((option) => option !== selectedOptions);
+      }
       return options.map((option) => (
         <MenuItem
           key={option}
@@ -72,7 +90,12 @@ export default function SelectedOptions(name, handleMultiSelectChange) {
       ));
     }
     case "locationType": {
-      const options = ["Remote", "Onsite"];
+      let options = ["Remote", "Onsite"];
+     if (typeof selectedOptions !== "string") {
+       options = options.filter((option) => !selectedOptions.includes(option));
+     } else {
+       options = options.filter((option) => option !== selectedOptions);
+     }
       return options.map((option) => (
         <MenuItem
           key={option}
@@ -85,7 +108,7 @@ export default function SelectedOptions(name, handleMultiSelectChange) {
       ));
     }
     case "minBasePay": {
-      const options = [
+      let options = [
         "0L",
         "10L",
         "20L",
@@ -98,6 +121,11 @@ export default function SelectedOptions(name, handleMultiSelectChange) {
         "90L",
         "100L",
       ];
+      if (typeof selectedOptions !== "string") {
+        options = options.filter((option) => !selectedOptions.includes(option));
+      } else {
+        options = options.filter((option) => option !== selectedOptions);
+      }
       return options.map((option) => (
         <MenuItem
           key={option}
