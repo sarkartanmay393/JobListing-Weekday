@@ -1,12 +1,11 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { updateFilters } from "../../features/jobs/jobsSlice";
+import { updateFilters } from "../../store/slices/jobsSlice";
 
 import Box from "@mui/material/Box";
 import CloseIcon from "@mui/icons-material/Close";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 
-import "./MultipleSelect.css";
 import VerticalLine from "../VerticalLine";
 import SelectedOptions from "./SelectOptions";
 

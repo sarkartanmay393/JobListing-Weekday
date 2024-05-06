@@ -2,17 +2,10 @@ import "./Filters.css";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import ClearIcon from "@mui/icons-material/Clear";
-import { TextField, MenuItem, Chip, IconButton } from "@mui/material";
-import { Select, OutlinedInput } from "@mui/material";
+import { OutlinedInput } from "@mui/material";
 
-import { updateFilters, clearFilters } from "../features/jobs/jobsSlice";
+import { updateFilters } from "../store/slices/jobsSlice";
 import MultipleSelectChip from "./inputs/MultipleSelect";
-
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
-
-const noOfEmployees = ["0-10", "11-50", "51-200", "201-500", "501-1000"];
 
 const Filters = () => {
   const dispatch = useDispatch();
@@ -21,18 +14,6 @@ const Filters = () => {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     dispatch(updateFilters({ [name]: value }));
-  };
-
-  const handleClearFilter = (filterName) => {
-    dispatch(updateFilters({ [filterName]: "" }));
-  };
-
-  const handleClearFilters = () => {
-    dispatch(clearFilters());
-  };
-
-  const handleMultiSelectChange = (e, name) => {
-    dispatch(updateFilters({ [name]: e.target.value }));
   };
 
   return (

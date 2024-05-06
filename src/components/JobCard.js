@@ -43,7 +43,14 @@ const JobCard = React.forwardRef(({ job }, ref) => {
       key={jdUid}
       square
     >
-      <CardContent className="job-card-content">
+      <CardContent
+        className="job-card-content"
+        sx={{
+          border: "0px solid red",
+          padding: "16px !important",
+          // paddingBottom: "16px ",
+        }}
+      >
         <div className="job-card-content-header">
           <div className="flex" style={{ gap: "4px" }}>
             <div className="job-card-chip">⏳ Posted 19 days ago</div>
@@ -187,8 +194,8 @@ const JobCard = React.forwardRef(({ job }, ref) => {
               ":hover": {
                 bgcolor: "#83ecc4",
               },
-              fontSize: "14px",
-              fontWeight: "600",
+              fontSize: "16px",
+              fontWeight: "500",
               color: "black",
               borderRadius: "8px",
               width: "100%",

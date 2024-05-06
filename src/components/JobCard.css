@@ -10,7 +10,6 @@
 }
 
 .job-card-content {
-  padding: 16px 0px;
   border: 0px solid black;
   display: flex;
   flex-direction: column;

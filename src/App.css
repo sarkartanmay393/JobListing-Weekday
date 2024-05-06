@@ -9,3 +9,13 @@
 .column {
   flex-direction: column;
 }
+
+.logo {
+  width: 120px;
+  height: auto;
+
+  margin-bottom: 4px;
+  /* position: absolute;
+  top: 24;
+  left: 24; */
+}

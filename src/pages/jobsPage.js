@@ -8,7 +8,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 
 import { capitalizeWords } from "../util";
 import JobCard from "../components/JobCard";
-import { fetchJobs } from "../features/jobs/jobsSlice";
+import { fetchJobs } from "../store/slices/jobsSlice";
 
 const LIMIT = 10;
 
