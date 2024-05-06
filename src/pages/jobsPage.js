@@ -1,5 +1,6 @@
 import "./jobsPage.css";
 
+import { useMediaQuery } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
 import React, { useEffect, useRef, useState } from "react";
 
@@ -72,8 +73,21 @@ const JobsPage = () => {
   }, [jobs, filters]);
 
   return (
-    <Box className="jobsPage">
-      <Box className="jobListing">
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        padding: "16px",
+        border: "2px solid red",
+      }}
+    >
+      <Box
+        className="jobListing"
+        sx={{
+          border: "1px solid red",
+        }}
+      >
         {filteredJobs.map((job, index) => {
           if (index === filteredJobs.length - 1) {
             return (

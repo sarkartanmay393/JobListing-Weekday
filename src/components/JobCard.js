@@ -133,7 +133,7 @@ const JobCard = React.forwardRef(({ job }, ref) => {
             </Box>
             <Typography
               variant="body2"
-              sx={{ fontSize: "15px", fontWeight: 300 }}
+              sx={{ fontSize: "15px", fontWeight: 300, textWrap: "nowrap" }}
             >
               {maxJdSalary || minJdSalary
                 ? `Estimated Salary: ${salaryCurrencyCode || "$"}${
@@ -153,7 +153,7 @@ const JobCard = React.forwardRef(({ job }, ref) => {
                 }}
               >
                 <Typography variant="body2" className="job-description">
-                  {`${jobDetailsFromCompany.substring(0, 180)}...`}
+                  {`${jobDetailsFromCompany}...`}
                 </Typography>
                 <Box className="fade-bottom" />
               </Box>
@@ -185,7 +185,7 @@ const JobCard = React.forwardRef(({ job }, ref) => {
             </Box>
           </Box>
         </Box>
-        <div className="job-card-content-footer">
+        <div className="job-card-content-footer column">
           <Button
             href="#"
             sx={{
@@ -202,6 +202,23 @@ const JobCard = React.forwardRef(({ job }, ref) => {
             }}
           >
             ⚡️ Easy Apply
+          </Button>
+          <Button
+            href="#"
+            sx={{
+              textTransform: "none",
+              bgcolor: "#4843d2",
+              ":hover": {
+                bgcolor: "#4843d2",
+              },
+              fontSize: "16px",
+              fontWeight: "500",
+              color: "white",
+              borderRadius: "8px",
+              width: "100%",
+            }}
+          >
+            ⚡️ Unlock referral asks
           </Button>
         </div>
       </CardContent>

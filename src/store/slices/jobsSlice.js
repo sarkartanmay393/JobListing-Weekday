@@ -67,7 +67,12 @@ const jobsSlice = createSlice({
       .addCase(fetchJobs.fulfilled, (state, action) => {
         const tempMap = {};
         [...state.jobs, ...action.payload.jdList].forEach((job) => {
-          tempMap[job.jdUid] = job;
+          tempMap[job.jdUid] = {
+            ...job,
+            jobDetailsFromCompany: ["", "", "", "", ""]
+              .map(() => job.jobDetailsFromCompany)
+              .join(" "),
+          };
         });
         // console.log("tempMail", tempMap);
 

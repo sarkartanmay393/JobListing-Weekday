@@ -1,12 +1,18 @@
 .job-card {
-  /* max-width: 300px; */
+  width: 100%;
+  max-width: 340px;
   height: fit-content;
-  /* max-height: 460px; */
 
   padding: 0px;
   border-radius: 20px;
 
   border: 0px solid #e0e0e0;
+}
+
+@media (max-width: 768px) {
+  .job-card {
+    max-width: none;
+  }
 }
 
 .job-card-content {
@@ -15,6 +21,8 @@
   flex-direction: column;
   justify-content: center;
   gap: 24px;
+
+  /* width: 300px; */
 }
 
 .job-card-content-content {
@@ -44,7 +52,7 @@
   width: 100%;
   display: flex;
   justify-content: center;
-
+  gap: 8px;
   border: 0px solid black;
 }
 
