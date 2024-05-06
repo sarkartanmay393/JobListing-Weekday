@@ -1,5 +1,6 @@
 import "./JobCard.css";
 import React, { useState } from "react";
+
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
@@ -57,58 +58,6 @@ const JobCard = React.forwardRef(({ job }, ref) => {
             <div className="job-card-chip">⏳ Posted 19 days ago</div>
             <div className="job-card-chip">📈 1 applicants</div>
           </div>
-          {/* <div class="MuiBox-root css-rmz4vk">
-            <span
-              class="MuiCircularProgress-root MuiCircularProgress-determinate MuiCircularProgress-colorPrimary css-pn52yy"
-              role="progressbar"
-              aria-valuenow="100"
-              style="width: 50px; height: 50px; transform: rotate(-90deg);"
-            >
-              <svg
-                class="MuiCircularProgress-svg css-13o7eu2"
-                viewBox="22 22 44 44"
-              >
-                <circle
-                  class="MuiCircularProgress-circle MuiCircularProgress-circleDeterminate css-nbfpn7"
-                  cx="44"
-                  cy="44"
-                  r="18"
-                  fill="none"
-                  stroke-width="8"
-                  style="stroke-dasharray: 113.097; stroke-dashoffset: 0px;"
-                ></circle>
-              </svg>
-            </span>
-            <span
-              class="MuiCircularProgress-root MuiCircularProgress-determinate MuiCircularProgress-colorPrimary css-1ar0xbv"
-              role="progressbar"
-              aria-valuenow="80"
-              style="width: 50px; height: 50px; transform: rotate(-90deg);"
-            >
-              <svg
-                class="MuiCircularProgress-svg css-13o7eu2"
-                viewBox="22 22 44 44"
-              >
-                <circle
-                  class="MuiCircularProgress-circle MuiCircularProgress-circleDeterminate css-nbfpn7"
-                  cx="44"
-                  cy="44"
-                  r="18"
-                  fill="none"
-                  stroke-width="8"
-                  style="stroke-dasharray: 113.097; stroke-dashoffset: 22.619px;"
-                ></circle>
-              </svg>
-            </span>
-            <div
-              class="MuiBox-root css-175ywl1"
-              aria-label="You have a 80% match score with this job"
-            >
-              <div class="MuiTypography-root MuiTypography-caption css-8e1tch">
-                80%
-              </div>
-            </div>
-          </div> */}
         </div>
         <Box className="flex column job-card-content-content">
           <Box className="flex column" sx={{ gap: "8px" }}>
