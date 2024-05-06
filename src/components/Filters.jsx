@@ -1,11 +1,14 @@
 import "./Filters.css";
+
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { OutlinedInput } from "@mui/material";
+import { OutlinedInput, Box } from "@mui/material";
 
 import { updateFilters } from "../store/slices/jobsSlice";
 import MultipleSelectChip from "./inputs/MultipleSelect";
+
+import "./inputs/MultipleSelect.css";
 
 const Filters = () => {
   const dispatch = useDispatch();
@@ -18,48 +21,63 @@ const Filters = () => {
 
   return (
     <div className="filters">
-      <div className="filter">
-        <MultipleSelectChip
-          key="roles"
-          name="roles"
-          label="Roles"
-          multiple={true}
-        />
-      </div>
-      <div className="filter">
-        <MultipleSelectChip
-          key="noOfEmployees"
-          name="noOfEmployees"
-          label="No of Employees"
-          multiple={true}
-        />
-      </div>
-      <div className="filter">
-        <MultipleSelectChip
-          key="minExperience"
-          name="minExperience"
-          label="Experience"
-          multiple={false}
-        />
-      </div>
-      <div className="filter">
-        <MultipleSelectChip
-          key="locationType"
-          name="locationType"
-          label="Location Type"
-          multiple={true}
-        />
-      </div>
-      <div className="filter">
-        <MultipleSelectChip
-          key="minBasePay"
-          name="minBasePay"
-          label="Minimum Base Pay"
-          multiple={false}
-        />
-      </div>
-      <div className="filter">
+      <MultipleSelectChip
+        key="roles"
+        name="roles"
+        label="Roles"
+        multiple={true}
+      />
+      <MultipleSelectChip
+        key="noOfEmployees"
+        name="noOfEmployees"
+        label="No of Employees"
+        multiple={true}
+      />
+      <MultipleSelectChip
+        key="minExperience"
+        name="minExperience"
+        label="Experience"
+        multiple={false}
+      />
+      <MultipleSelectChip
+        key="locationType"
+        name="locationType"
+        label="Location Type"
+        multiple={true}
+      />
+
+      <MultipleSelectChip
+        key="minBasePay"
+        name="minBasePay"
+        label="Minimum Base Pay"
+        multiple={false}
+      />
+      <Box
+        className="filter-box"
+        key="companyNameBox"
+        sx={{
+          position: "relative",
+          border: "0px solid red",
+          display: "flex",
+          flexDirection: "column",
+        }}
+      >
+        <label
+          id="filter-label-mobile"
+          htmlFor="companyName"
+          style={{
+            position: "absolute",
+            top: "-26px",
+            left: "4px",
+            fontSize: "14px",
+            textWrap: "nowrap",
+            overflow: "hidden",
+          }}
+        >
+          Search Company Name
+        </label>
         <OutlinedInput
+          id="filter-company-name"
           size="small"
           placeholder="Search Company Name"
           name="companyName"
@@ -67,7 +85,7 @@ const Filters = () => {
           onChange={handleInputChange}
           inputProps={{ style: { padding: "8.5px 14px", fontSize: "14px" } }}
         />
-      </div>
+      </Box>
     </div>
   );
 };

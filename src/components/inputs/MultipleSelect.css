@@ -1,0 +1,23 @@
+/* #filter-label-mobile {
+  display: none;
+} */
+
+/* @media screen and (max-width: 980px) { */
+#filter-label-mobile {
+  display: block;
+  font-size: 16px;
+  font-weight: 400;
+  margin-bottom: 8px;
+}
+
+#filter-label-moving {
+  color: gray;
+  font-size: 12px;
+  font-weight: 400;
+}
+
+
+
+#filter-company-name {
+  font-family: Lexend, sans-serif;
+}

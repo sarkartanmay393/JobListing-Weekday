@@ -1,18 +1,32 @@
 .filters {
-  row-gap: 16px;
-  column-gap: 0px;
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
-  margin: 6px 0px;
+  justify-content: center;
+  align-items: flex-end;
+  flex-direction: row;
+  margin: 16px 0 0 0;
 
-  width: 95%;
+  /* width: 95%; */
+  width: 100%;
   border: 0px solid #e0e0e0;
+
+  row-gap: 36px;
+  column-gap: 16px;
+  /* gap: 36px; */
 }
 
-.filter {
-  display: flex;
-  flex-direction: column;
+@media screen and (max-width: 480px) {
+  /* .filters {
+    flex-direction: column;
+    align-items: start;
+  } */
+}
+
+@media screen and (max-width: 480px) {
+  .filter-box {
+    /* flex: 1; */
+    width: 100%;
+  }
 }
 
 .filter-chip {
@@ -20,6 +34,9 @@
 }
 
 .chip {
+  width: fit-content;
+  /* flex: 1; */
+  text-wrap: nowrap;
   display: flex;
   justify-content: center;
   align-items: center;

@@ -47,7 +47,12 @@ export default function SelectedOptions(name, handleMultiSelectChange) {
           key={option}
           value={option}
           onClick={() => handleMultiSelectChange(option)}
-          sx={{ fontSize: "14px" }}
+          sx={{
+            fontSize: "14px",
+            ":hover": {
+              bgcolor: "#234567",
+            },
+          }}
         >
           {option}
         </MenuItem>

@@ -35,7 +35,7 @@ const JobsPage = () => {
 
   useEffect(() => {
     dispatch(fetchJobs({ limit: LIMIT, offset }));
-  }, [dispatch, offset]);
+  }, [offset]);
 
   useEffect(() => {
     setFilteredJobs(
@@ -79,13 +79,13 @@ const JobsPage = () => {
         flexDirection: "column",
         alignItems: "center",
         padding: "16px",
-        border: "2px solid red",
+        border: "0px solid red",
       }}
     >
       <Box
         className="jobListing"
         sx={{
-          border: "1px solid red",
+          border: "0px solid red",
         }}
       >
         {filteredJobs.map((job, index) => {

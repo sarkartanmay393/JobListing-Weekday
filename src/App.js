@@ -1,10 +1,26 @@
 import "./App.css";
 
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import Box from "@mui/material/Box";
 
-import JobsPage from "./pages/jobsPage";
-import Filters from "./components/Filters";
+const JobsPage = lazy(() => import("./pages/jobsPage"));
+const Filters = lazy(() => import("./components/Filters"));
+
+export default function App() {
+  return (
+    <Box style={styles.app}>
+      <img className="logo" src="/logo.png" alt="Weekday Logo" />
+      <Box sx={{ display: "flex", gap: "24px" }}>
+        <h3 style={styles.tab}>Applied Jobs</h3>
+        <h3 style={styles.activeTab}>Search Jobs</h3>
+      </Box>
+      <Suspense fallback={<div>Loading...</div>}>
+        <Filters />
+        <JobsPage />
+      </Suspense>
+    </Box>
+  );
+}
 
 const styles = {
   app: {
@@ -12,6 +28,7 @@ const styles = {
     flexDirection: "column",
     alignItems: "center",
     minHeight: "100vh",
+    width: "100vw",
     gap: "20px",
     padding: "24px",
     overflowX: "hidden",
@@ -32,19 +49,3 @@ const styles = {
     cursor: "pointer",
   },
 };
-
-const App = () => {
-  return (
-    <Box style={styles.app}>
-      <img className="logo" src="/logo.png" alt="Weekday Logo" />
-      <Box sx={{ display: "flex", gap: "24px" }}>
-        <h3 style={styles.tab}>Applied Jobs</h3>
-        <h3 style={styles.activeTab}>Search Jobs</h3>
-      </Box>
-      <Filters />
-      <JobsPage />
-    </Box>
-  );
-};
-
-export default App;
