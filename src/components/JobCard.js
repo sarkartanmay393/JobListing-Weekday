@@ -5,6 +5,7 @@ import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { Box, CircularProgress } from "@mui/material";
+import Avatar from "@mui/material/Avatar";
 
 import { capitalizeWords } from "../util";
 
@@ -187,7 +188,8 @@ const JobCard = React.forwardRef(({ job }, ref) => {
         </Box>
         <div className="job-card-content-footer column">
           <Button
-            href="#"
+            target="_blank"
+            href={jdLink || "#"}
             sx={{
               textTransform: "none",
               bgcolor: "#83ecc4",
@@ -216,9 +218,20 @@ const JobCard = React.forwardRef(({ job }, ref) => {
               color: "white",
               borderRadius: "8px",
               width: "100%",
+              gap: "16px",
             }}
           >
-            ⚡️ Unlock referral asks
+            <div className="flex" style={{ gap: "6px" }}>
+              <Avatar
+                sx={{ width: "24px", height: "auto" }}
+                src="https://sm.ign.com/ign_pk/cover/a/avatar-gen/avatar-generations_rpge.jpg"
+              />
+              <Avatar
+                sx={{ width: "24px", height: "auto" }}
+                src="https://static1.colliderimages.com/wordpress/wp-content/uploads/2022/12/avatar-2009-1.jpg"
+              />
+            </div>
+            Unlock referral asks
           </Button>
         </div>
       </CardContent>
