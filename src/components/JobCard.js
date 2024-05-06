@@ -153,8 +153,8 @@ const JobCard = React.forwardRef(({ job }, ref) => {
               >
                 <Typography variant="body2" className="job-description">
                   {`${jobDetailsFromCompany.substring(0, 180)}...`}
-                  <Box className="fade-bottom" />
                 </Typography>
+                <Box className="fade-bottom" />
               </Box>
               <Button
                 variant="text"

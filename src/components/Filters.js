@@ -55,7 +55,7 @@ const Filters = () => {
   return (
     <div className="filters">
       <div className="filter">
-        <MultipleSelectChip key="roles" name="Roles" options={roles} />
+        <MultipleSelectChip key="roles" name="Roles" options={roles} multiple={true} />
       </div>
       {/* <div className="filter">
         <MultipleSelectChip

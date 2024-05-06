@@ -5,7 +5,7 @@ const Theme = () => {
     components: {},
     palette: {
       primary: {
-        main: "#83ecc4",
+        main: "#0e7fe1",
       },
       secondary: {
         main: "#83ecc4",

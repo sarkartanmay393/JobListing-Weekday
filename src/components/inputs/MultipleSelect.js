@@ -15,7 +15,7 @@ import "./MultipleSelect.css";
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
 
-export default function MultipleSelectChip({ name, options }) {
+export default function MultipleSelectChip({ name, options, multiple }) {
   const [open, setOpen] = React.useState(false);
   const dispatch = useDispatch();
   const filters = useSelector((state) => state.jobs.filters);
@@ -30,11 +30,9 @@ export default function MultipleSelectChip({ name, options }) {
   };
 
   const handleMultiSelectChange = (e) => {
-    // console.log(e.target.name, e.target.value);
-    // console.log(selectedOptions);
     dispatch(
       updateFilters({
-        [e.target.name.toLowerCase()]:
+        [name.toLowerCase()]:
           typeof value === "string"
             ? e.target.value.split(",")
             : e.target.value,
@@ -78,7 +76,9 @@ export default function MultipleSelectChip({ name, options }) {
   const handleSingleClear = (value) => {
     dispatch(
       updateFilters({
-        [name.toLowerCase()]: selectedOptions.filter((option) => option !== value),
+        [name.toLowerCase()]: selectedOptions.filter(
+          (option) => option !== value
+        ),
       })
     );
   };
@@ -102,7 +102,7 @@ export default function MultipleSelectChip({ name, options }) {
         open={open}
         onOpen={handleOpen}
         onClose={() => setOpen(false)}
-        multiple
+        multiple={multiple}
         name={name}
         value={selectedOptions}
         onChange={handleMultiSelectChange}
@@ -146,8 +146,8 @@ export default function MultipleSelectChip({ name, options }) {
             </Box>
             <CloseIcon
               fontSize="16px"
-              sx={{ marginLeft: "0px", zIndex: 100}}
-              onCLick={handleClearFilter}
+              sx={{ marginLeft: "0px", zIndex: 100 }}
+              onClick={handleClearFilter}
             />
             <Line direction="vertical" sx={{ display: open ? "" : "hidden" }} />
           </Box>

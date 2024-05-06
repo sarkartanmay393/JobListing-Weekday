@@ -21,6 +21,7 @@ const styles = {
     fontSize: "16px",
     fontWeight: "normal",
     cursor: "pointer",
+    color: "gray",
   },
   activeTab: {
     paddingInline: "8px",
