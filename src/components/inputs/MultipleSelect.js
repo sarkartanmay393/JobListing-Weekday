@@ -1,45 +1,39 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { updateFilters, clearFilters } from "../../features/jobs/jobsSlice";
+import { updateFilters } from "../../features/jobs/jobsSlice";
 
 import Box from "@mui/material/Box";
-import Select from "@mui/material/Select";
-import MenuItem from "@mui/material/MenuItem";
 import CloseIcon from "@mui/icons-material/Close";
-import FormControl from "@mui/material/FormControl";
-import OutlinedInput from "@mui/material/OutlinedInput";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 
 import "./MultipleSelect.css";
+import VerticalLine from "../VerticalLine";
+import SelectedOptions from "./SelectOptions";
 
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
-
-export default function MultipleSelectChip({ name, options, multiple }) {
+export default function MultipleSelectChip({ name, label, multiple }) {
   const dispatch = useDispatch();
   const boxRef = React.useRef(null);
   const menuBoxRef = React.useRef(null);
   const [open, setOpen] = React.useState(false);
   const filters = useSelector((state) => state.jobs.filters);
-  const selectedOptions = filters[name.toLowerCase()];
+  const selectedOptions = filters[name];
 
   const handleClearFilter = () => {
     dispatch(
       updateFilters({
-        [name.toLowerCase()]: typeof selectedOptions === "string" ? "" : [],
+        [name]: typeof selectedOptions === "string" ? "" : [],
       })
     );
   };
 
-  const handleMultiSelectChange = (e) => {
-    dispatch(
-      updateFilters({
-        [name.toLowerCase()]:
-          typeof value === "string"
-            ? e.target.value.split(",")
-            : e.target.value,
-      })
-    );
+  const handleMultiSelectChange = (value) => {
+    if (!filters[name].includes(value)) {
+      dispatch(
+        updateFilters({
+          [name]: multiple ? [...filters[name], value] : value,
+        })
+      );
+    }
   };
 
   const handleOpen = () => {
@@ -49,9 +43,9 @@ export default function MultipleSelectChip({ name, options, multiple }) {
   const handleSingleClear = (value) => {
     dispatch(
       updateFilters({
-        [name.toLowerCase()]: selectedOptions.filter(
-          (option) => option !== value
-        ),
+        [name]: multiple
+          ? selectedOptions.filter((option) => option !== value)
+          : "",
       })
     );
   };
@@ -75,10 +69,15 @@ export default function MultipleSelectChip({ name, options, multiple }) {
   useEffect(() => {
     if (window && document) {
       const selectInput = document.getElementById("select-input");
+      // const verticalLine = document.getElementById("verticalLine");
       if (selectInput) {
         if (!menuBoxRef.current) return;
         menuBoxRef.current.style.width = selectInput.offsetWidth + "px";
       }
+      // TODO: Fix vertical line height
+      // if (verticalLine) {
+      //   verticalLine.style.height = selectInput.offsetHeight + "px";
+      // }
     }
   }, [open, selectedOptions.length]);
 
@@ -98,7 +97,7 @@ export default function MultipleSelectChip({ name, options, multiple }) {
           ...(selectedOptions.length ? { top: "-26px", left: "4px" } : {}),
         }}
       >
-        {name}
+        {label}
       </label>
       <Box
         name={name}
@@ -130,28 +129,50 @@ export default function MultipleSelectChip({ name, options, multiple }) {
           }}
         >
           <Box className="flex" sx={{ flexWrap: "wrap", gap: 0.5 }}>
-            {selectedOptions.map((value) => (
-              <div key={value} className="chip">
-                <p>{value}</p>
+            {multiple ? (
+              selectedOptions.map((value) => (
+                <div key={value} className="chip">
+                  <p>{value}</p>
+                  <CloseIcon
+                    onClick={() => handleSingleClear(value)}
+                    fontSize="12px"
+                    sx={{ marginLeft: "6px" }}
+                  />
+                </div>
+              ))
+            ) : (
+              <div
+                style={{ display: selectedOptions ? "" : "none" }}
+                key={selectedOptions}
+                className="chip"
+              >
+                <p>{selectedOptions}</p>
                 <CloseIcon
-                  onClick={() => handleSingleClear(value)}
+                  onClick={() => handleSingleClear(selectedOptions)}
                   fontSize="12px"
                   sx={{ marginLeft: "6px" }}
                 />
               </div>
-            ))}
+            )}
           </Box>
           <Box sx={{ display: "flex", alignItems: "center", gap: "4px" }}>
             <CloseIcon
               fontSize="16px"
-              sx={{ marginLeft: "8px", zIndex: 100 }}
+              sx={{
+                marginLeft: "8px",
+                zIndex: 100,
+                display: selectedOptions.length ? "" : "none",
+              }}
               onClick={handleClearFilter}
             />
-            <Line direction="vertical" sx={{ display: open ? "" : "hidden" }} />
+            <VerticalLine
+              sx={{ display: selectedOptions.length ? "" : "none" }}
+            />
             <KeyboardArrowDownIcon sx={{ color: open ? "gray" : "white" }} />
           </Box>
         </Box>
         <Box
+          key={name}
           ref={menuBoxRef}
           sx={{
             border: "1px solid #c4c4c4",
@@ -164,73 +185,13 @@ export default function MultipleSelectChip({ name, options, multiple }) {
             top: "110%",
             left: 0,
             zIndex: 101,
+            maxHeight: "240px",
+            overflowY: "auto",
           }}
         >
-          {optionsBasedOnName(name)}
+          {SelectedOptions(name, handleMultiSelectChange)}
         </Box>
       </Box>
     </Box>
   );
 }
-
-function optionsBasedOnName(name) {
-  switch (name) {
-    case "Roles": {
-      const options = [
-        "Engineering*",
-        "Frontend",
-        "Backend",
-        "Fullstack",
-        "DevOps",
-        "Data Scientist",
-        "QA",
-      ];
-
-      return options.map((option) => (
-        <MenuItem
-          key={option}
-          value={
-            option.charAt(option.length - 1) === "*"
-              ? option.substring(0, option.length - 1)
-              : option
-          }
-          disabled={option.charAt(option.length - 1) === "*"}
-          sx={
-            option.charAt(option.length - 1) === "*"
-              ? { fontSize: "13px", textTransform: "uppercase" }
-              : {
-                  fontSize: "14px",
-                }
-          }
-        >
-          {option.charAt(option.length - 1) === "*"
-            ? option.substring(0, option.length - 1)
-            : option}
-        </MenuItem>
-      ));
-    }
-    case "No of Employees": {
-      const options = ["0-10", "11-50", "51-200", "201-500", "501-1000"];
-      return options.map((option) => (
-        <MenuItem key={option} value={option} sx={{ fontSize: "14px" }}>
-          {option}
-        </MenuItem>
-      ));
-    }
-    default:
-      return [];
-  }
-}
-
-const Line = ({ direction, sx }) => {
-  const lineStyle = {
-    width: direction === "vertical" ? "1px" : "100%",
-    height: direction === "vertical" ? "100%" : "1px",
-    backgroundColor: "grey",
-    // flexGrow: 1,
-    minHeight: "18px",
-    // ...(sx || {}),
-  };
-
-  return <div style={lineStyle}></div>;
-};

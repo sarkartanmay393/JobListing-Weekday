@@ -6,7 +6,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { Box } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
 
-import { capitalizeWords } from "../utils";
+import { capitalizeWords } from "../util";
 import JobCard from "../components/JobCard";
 import { fetchJobs } from "../features/jobs/jobsSlice";
 
@@ -40,8 +40,13 @@ const JobsPage = () => {
     setFilteredJobs(
       jobs.filter((job) => {
         return (
-          (filters.minExperience === 0 ||
-            (job.maxExp !== null && job.maxExp >= filters.minExperience)) &&
+          (filters.minExperience === "" ||
+            (job.minExp !== null &&
+              job.minExp >= parseInt(filters.minExperience, 10))) &&
+          (!filters.locationType.length ||
+            filters.locationType.includes(
+              job.location === "remote" ? "Remote" : "Onsite"
+            )) &&
           (!filters.companyName ||
             (job.companyName &&
               job.companyName
@@ -55,8 +60,12 @@ const JobsPage = () => {
           (!filters.roles.length ||
             (job.jobRole &&
               filters.roles.includes(capitalizeWords(job.jobRole)))) &&
-          (filters.minBasePay === 0 ||
-            (job.minJdSalary !== null && job.minJdSalary >= filters.minBasePay))
+          (filters.minBasePay === "" ||
+            (job.minJdSalary !== null &&
+              job.minJdSalary >=
+                parseInt(
+                  filters.minBasePay.substring(0, filters.minBasePay.length - 1)
+                )))
         );
       })
     );

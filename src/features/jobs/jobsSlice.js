@@ -6,23 +6,15 @@ const initialState = {
   status: "idle",
   error: null,
   filters: {
-    minExperience: 0,
-    companyName: "",
-    location: "",
-    isRemote: false,
-    // techStack: [],
-    roles: [
-      "Frontend",
-      "Data Scientist",
-      "IOS",
-      "Android",
-      "QA",
-      "DevOps",
-      "Fullstack",
-      "Backend",
-    ],
-    minBasePay: 0,
+    roles: [],
     noOfEmployees: [],
+    minExperience: "",
+    locationType: [],
+    minBasePay: "",
+    companyName: "",
+
+    // location: "",
+    // techStack: [],
   },
 };
 

@@ -6,7 +6,7 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { Box, CircularProgress } from "@mui/material";
 
-import { capitalizeWords } from "../utils";
+import { capitalizeWords } from "../util";
 
 const JobCard = React.forwardRef(({ job }, ref) => {
   const [loading, setLoading] = useState(false);
