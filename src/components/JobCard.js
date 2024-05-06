@@ -6,7 +6,7 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { Box, CircularProgress } from "@mui/material";
 
-const JobCard = ({ job }) => {
+const JobCard = React.forwardRef(({ job }, ref) => {
   const [loading, setLoading] = useState(false);
 
   const {
@@ -40,6 +40,7 @@ const JobCard = ({ job }) => {
 
   return (
     <Card
+      ref={ref}
       sx={{
         boxShadow: "(0, 0, 0, 0) 0px 1px 4px 0px !important;",
         border: "1px solid #e0e0e0",
@@ -205,6 +206,6 @@ const JobCard = ({ job }) => {
       </CardContent>
     </Card>
   );
-};
+});
 
 export default JobCard;

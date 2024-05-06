@@ -55,12 +55,15 @@ const Filters = () => {
   return (
     <div className="filters">
       <div className="filter">
-        {/* <label style={{ fontSize: "14px", fontWeight: "550" }}>Roles</label> */}
-        <MultipleSelectChip name="Roles" options={roles} />
+        <MultipleSelectChip key="roles" name="Roles" options={roles} />
       </div>
-      <div className="filter">
-        <MultipleSelectChip name="No of Employees" options={noOfEmployees} />
-      </div>
+      {/* <div className="filter">
+        <MultipleSelectChip
+          key="noOfEmployees"
+          name="No of Employees"
+          options={noOfEmployees}
+        />
+      </div> */}
       {/* <div className="filter">
         <TextField
           label="Experience"

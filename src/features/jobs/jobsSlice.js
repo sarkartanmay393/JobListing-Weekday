@@ -10,9 +10,10 @@ const initialState = {
     companyName: "",
     location: "",
     isRemote: false,
-    techStack: "",
-    role: "",
+    // techStack: [],
+    roles: [],
     minBasePay: 0,
+    noOfEmployees: [],
   },
 };
 
@@ -59,13 +60,18 @@ const jobsSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchJobs.pending, (state) => {
-        console.log("fetch jobs pending", state);
+        // console.log("fetch jobs pending", state);
         state.status = "loading";
       })
       .addCase(fetchJobs.fulfilled, (state, action) => {
-        console.log("fetch jobs fulfilled", state, action);
+        const tempMap = {};
+        [...state.jobs, ...action.payload.jdList].forEach((job) => {
+          tempMap[job.jdUid] = job;
+        });
+        // console.log("tempMail", tempMap);
+
         state.status = "succeeded";
-        state.jobs = [...state.jobs, ...(action.payload.jdList || [])];
+        state.jobs = Object.values(tempMap);
         state.totalCount = action.payload.totalCount;
       })
       .addCase(fetchJobs.rejected, (state, action) => {
