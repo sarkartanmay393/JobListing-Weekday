@@ -11,7 +11,9 @@ import SelectedOptions from "./SelectOptions";
 
 import "./MultipleSelect.css";
 
-export default function MultipleSelectChip({ name, label, multiple }) {
+import Fuse from "fuse.js";
+
+export default function MultipleSelectChip({ name, label, multiple, options }) {
   const dispatch = useDispatch();
   const boxRef = React.useRef(null);
   const menuBoxRef = React.useRef(null);
@@ -84,6 +86,37 @@ export default function MultipleSelectChip({ name, label, multiple }) {
       // }
     }
   }, [name, open, selectedOptions.length]);
+
+  const fuse = new Fuse(
+    options.map((option) => ({ value: option })),
+    {
+      keys: ["value"],
+      includeScore: true,
+      includeMatches: true,
+      threshold: 0.4,
+    }
+  );
+
+  const [searchResults, setSearchResults] = React.useState(options);
+
+  useEffect(() => {
+    const input = document.getElementById(name + "-input");
+    const handleSettingSearchResult = () => {
+      const result = fuse.search(
+        document.getElementById(name + "-input").value
+      );
+      // console.log("options", options);
+      // console.log("result", result);
+
+      setSearchResults(result.map((r) => r.item.value));
+    };
+
+    input.addEventListener("input", handleSettingSearchResult);
+
+    return () => {
+      input.removeEventListener("input", handleSettingSearchResult);
+    };
+  }, []);
 
   return (
     <Box
@@ -270,7 +303,12 @@ export default function MultipleSelectChip({ name, label, multiple }) {
             overflowY: "auto",
           }}
         >
-          {SelectedOptions(name, handleMultiSelectChange, selectedOptions)}
+          {SelectedOptions(
+            name,
+            handleMultiSelectChange,
+            selectedOptions,
+            searchResults
+          )}
         </Box>
       </Box>
     </Box>

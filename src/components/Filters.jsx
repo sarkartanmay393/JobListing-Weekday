@@ -26,24 +26,38 @@ const Filters = () => {
         name="roles"
         label="Roles"
         multiple={true}
+        options={[
+          "Engineering*",
+          "Frontend",
+          "Backend",
+          "Fullstack",
+          "Android",
+          "IOS",
+          "DevOps",
+          "Data Scientist",
+          "QA",
+        ]}
       />
       <MultipleSelectChip
         key="noOfEmployees"
         name="noOfEmployees"
         label="No of Employees"
         multiple={true}
+        options={["0-10", "11-50", "51-200", "201-500", "501-1000"]}
       />
       <MultipleSelectChip
         key="minExperience"
         name="minExperience"
         label="Experience"
         multiple={false}
+        options={["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]}
       />
       <MultipleSelectChip
         key="locationType"
         name="locationType"
         label="Location Type"
         multiple={true}
+        options={["Remote", "Onsite"]}
       />
 
       <MultipleSelectChip
@@ -51,6 +65,19 @@ const Filters = () => {
         name="minBasePay"
         label="Minimum Base Pay"
         multiple={false}
+        options={[
+          "0L",
+          "10L",
+          "20L",
+          "30L",
+          "40L",
+          "50L",
+          "60L",
+          "70L",
+          "80L",
+          "90L",
+          "100L",
+        ]}
       />
       <Box
         className="filter-box"

@@ -4,21 +4,12 @@ import MenuItem from "@mui/material/MenuItem";
 export default function SelectedOptions(
   name,
   handleMultiSelectChange,
-  selectedOptions
+  selectedOptions,
+  incomingOptions,
 ) {
   switch (name) {
     case "roles": {
-      let options = [
-        "Engineering*",
-        "Frontend",
-        "Backend",
-        "Fullstack",
-        "Android",
-        "IOS",
-        "DevOps",
-        "Data Scientist",
-        "QA",
-      ];
+      let options = incomingOptions;
 
       if (typeof selectedOptions !== "string") {
         options = options.filter((option) => !selectedOptions.includes(option));
@@ -49,7 +40,7 @@ export default function SelectedOptions(
       ));
     }
     case "noOfEmployees": {
-      let options = ["0-10", "11-50", "51-200", "201-500", "501-1000"];
+      let options = incomingOptions;
       if (typeof selectedOptions !== "string") {
         options = options.filter((option) => !selectedOptions.includes(option));
       } else {
@@ -72,7 +63,7 @@ export default function SelectedOptions(
       ));
     }
     case "minExperience": {
-      let options = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
+      let options = incomingOptions;
       if (typeof selectedOptions !== "string") {
         options = options.filter((option) => !selectedOptions.includes(option));
       } else {
@@ -90,12 +81,12 @@ export default function SelectedOptions(
       ));
     }
     case "locationType": {
-      let options = ["Remote", "Onsite"];
-     if (typeof selectedOptions !== "string") {
-       options = options.filter((option) => !selectedOptions.includes(option));
-     } else {
-       options = options.filter((option) => option !== selectedOptions);
-     }
+      let options = incomingOptions;
+      if (typeof selectedOptions !== "string") {
+        options = options.filter((option) => !selectedOptions.includes(option));
+      } else {
+        options = options.filter((option) => option !== selectedOptions);
+      }
       return options.map((option) => (
         <MenuItem
           key={option}
@@ -108,19 +99,7 @@ export default function SelectedOptions(
       ));
     }
     case "minBasePay": {
-      let options = [
-        "0L",
-        "10L",
-        "20L",
-        "30L",
-        "40L",
-        "50L",
-        "60L",
-        "70L",
-        "80L",
-        "90L",
-        "100L",
-      ];
+      let options = incomingOptions;
       if (typeof selectedOptions !== "string") {
         options = options.filter((option) => !selectedOptions.includes(option));
       } else {
