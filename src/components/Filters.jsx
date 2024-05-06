@@ -36,7 +36,7 @@ const Filters = () => {
   };
 
   return (
-    <div className="filters" style={{ border: "1px solid red" }}>
+    <div className="filters">
       <div className="filter">
         <MultipleSelectChip
           key="roles"
@@ -84,7 +84,7 @@ const Filters = () => {
           name="companyName"
           value={filters.companyName}
           onChange={handleInputChange}
-          sx={{ padding: "0", "& .MuiOutlinedInput-sizeSmall	": { padding: 0 } }}
+          inputProps={{ style: { padding: "8.5px 14px", fontSize: "14px" } }}
         />
       </div>
     </div>
