@@ -6,6 +6,8 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { Box, CircularProgress } from "@mui/material";
 
+import { capitalizeWords } from "../utils";
+
 const JobCard = React.forwardRef(({ job }, ref) => {
   const [loading, setLoading] = useState(false);
 
@@ -22,14 +24,6 @@ const JobCard = React.forwardRef(({ job }, ref) => {
     companyName,
     logoUrl,
   } = job;
-
-  const toCamelCase = (str) => {
-    return str
-      .replace(/(?:^\w|[A-Z]|\b\w)/g, (word, index) => {
-        return index === 0 ? word.toUpperCase() : word.toLowerCase();
-      })
-      .replace(/\s+/g, "");
-  };
 
   const showMore = () => {
     setLoading(true);
@@ -122,7 +116,7 @@ const JobCard = React.forwardRef(({ job }, ref) => {
                     {companyName}
                   </Typography>
                   <Typography variant="h2" sx={{ fontSize: "14px" }}>
-                    {toCamelCase(jobRole)}
+                    {capitalizeWords(jobRole)}
                   </Typography>
                 </Box>
                 <Typography variant="h6" sx={{ fontSize: "11px" }}>

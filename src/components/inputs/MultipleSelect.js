@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateFilters, clearFilters } from "../../features/jobs/jobsSlice";
 
@@ -16,8 +16,10 @@ const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
 
 export default function MultipleSelectChip({ name, options, multiple }) {
-  const [open, setOpen] = React.useState(false);
   const dispatch = useDispatch();
+  const boxRef = React.useRef(null);
+  const menuBoxRef = React.useRef(null);
+  const [open, setOpen] = React.useState(false);
   const filters = useSelector((state) => state.jobs.filters);
   const selectedOptions = filters[name.toLowerCase()];
 
@@ -40,36 +42,7 @@ export default function MultipleSelectChip({ name, options, multiple }) {
     );
   };
 
-  const [MenuProps, setMenuProps] = React.useState({
-    PaperProps: {
-      style: {
-        maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-        minWidth: 180,
-        border: "0px solid red",
-      },
-    },
-  });
-
   const handleOpen = () => {
-    if (window) {
-      const selectInput = document.getElementById("select-input");
-      if (selectInput) {
-        console.log(
-          selectInput.offsetWidth,
-          selectInput.clientWidth,
-          selectInput.style.width
-        );
-        setMenuProps({
-          PaperProps: {
-            style: {
-              maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-              width: selectInput.offsetWidth,
-              minWidth: 180,
-            },
-          },
-        });
-      }
-    }
     setOpen(true);
   };
 
@@ -83,8 +56,38 @@ export default function MultipleSelectChip({ name, options, multiple }) {
     );
   };
 
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (!boxRef.current) return;
+      if (boxRef.current.contains(event.target)) {
+        !open && handleOpen();
+      } else {
+        open && setOpen(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [open]);
+
+  useEffect(() => {
+    if (window && document) {
+      const selectInput = document.getElementById("select-input");
+      if (selectInput) {
+        if (!menuBoxRef.current) return;
+        menuBoxRef.current.style.width = selectInput.offsetWidth + "px";
+      }
+    }
+  }, [open, selectedOptions.length]);
+
   return (
-    <FormControl key={name} sx={{ m: 1, width: "fit-content" }}>
+    <Box
+      ref={boxRef}
+      key={name}
+      sx={{ m: 1, width: "fit-content", position: "relative" }}
+    >
       <label
         htmlFor={name}
         style={{
@@ -97,66 +100,76 @@ export default function MultipleSelectChip({ name, options, multiple }) {
       >
         {name}
       </label>
-      <Select
-        id="select-input"
-        open={open}
-        onOpen={handleOpen}
-        onClose={() => setOpen(false)}
-        multiple={multiple}
+      <Box
         name={name}
-        value={selectedOptions}
-        onChange={handleMultiSelectChange}
-        input={
-          <OutlinedInput
-            color="secondary"
-            sx={{
-              padding: 0,
-              minWidth: "180px",
-              height: "fit-content",
-              "& .MuiSelect-select": {
-                padding: "8px 14px",
-              },
-            }}
-          />
-        }
-        IconComponent={KeyboardArrowDownIcon}
-        renderValue={(selected) => (
-          <Box
-            sx={{
-              gap: 0.5,
-              display: "flex",
-              flexWrap: "nowrap",
-              alignItems: "center",
-              justifyContent: "space-between",
-              border: "0px solid red",
-              height: "fit-content",
-            }}
-          >
-            <Box className="flex" sx={{ flexWrap: "wrap", gap: 0.5 }}>
-              {selected.map((value) => (
-                <div key={value} className="chip">
-                  <p>{value}</p>
-                  <CloseIcon
-                    onClick={() => handleSingleClear(value)}
-                    fontSize="12px"
-                    sx={{ marginLeft: "6px" }}
-                  />
-                </div>
-              ))}
-            </Box>
+        id="select-input"
+        sx={{
+          display: "flex",
+          gap: 0.5,
+          alignItems: "center",
+          borderRadius: "4px",
+          padding: "6px",
+          cursor: "pointer",
+          border: "1px solid #c4c4c4",
+          "&:hover": {
+            border: "1.5px solid",
+            borderColor: "primary.main",
+          },
+        }}
+      >
+        <Box
+          sx={{
+            minWidth: "180px",
+            gap: 0.5,
+            display: "flex",
+            flexWrap: "nowrap",
+            alignItems: "center",
+            justifyContent: "space-between",
+            border: "0px solid red",
+            height: "fit-content",
+          }}
+        >
+          <Box className="flex" sx={{ flexWrap: "wrap", gap: 0.5 }}>
+            {selectedOptions.map((value) => (
+              <div key={value} className="chip">
+                <p>{value}</p>
+                <CloseIcon
+                  onClick={() => handleSingleClear(value)}
+                  fontSize="12px"
+                  sx={{ marginLeft: "6px" }}
+                />
+              </div>
+            ))}
+          </Box>
+          <Box sx={{ display: "flex", alignItems: "center", gap: "4px" }}>
             <CloseIcon
               fontSize="16px"
-              sx={{ marginLeft: "0px", zIndex: 100 }}
+              sx={{ marginLeft: "8px", zIndex: 100 }}
               onClick={handleClearFilter}
             />
             <Line direction="vertical" sx={{ display: open ? "" : "hidden" }} />
+            <KeyboardArrowDownIcon sx={{ color: open ? "gray" : "white" }} />
           </Box>
-        )}
-        MenuProps={MenuProps}
-      >
-        {optionsBasedOnName(name)}
-      </Select>
-    </FormControl>
+        </Box>
+        <Box
+          ref={menuBoxRef}
+          sx={{
+            border: "1px solid #c4c4c4",
+            borderRadius: "4px",
+            minWidth: "180px",
+            display: open ? "flex" : "none",
+            flexDirection: "column",
+            position: "absolute",
+            bgcolor: "lightgray",
+            top: "110%",
+            left: 0,
+            zIndex: 101,
+          }}
+        >
+          {optionsBasedOnName(name)}
+        </Box>
+      </Box>
+    </Box>
   );
 }
 
@@ -176,7 +189,11 @@ function optionsBasedOnName(name) {
       return options.map((option) => (
         <MenuItem
           key={option}
-          value={option}
+          value={
+            option.charAt(option.length - 1) === "*"
+              ? option.substring(0, option.length - 1)
+              : option
+          }
           disabled={option.charAt(option.length - 1) === "*"}
           sx={
             option.charAt(option.length - 1) === "*"
@@ -186,7 +203,9 @@ function optionsBasedOnName(name) {
                 }
           }
         >
-          {option}
+          {option.charAt(option.length - 1) === "*"
+            ? option.substring(0, option.length - 1)
+            : option}
         </MenuItem>
       ));
     }

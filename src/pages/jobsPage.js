@@ -2,12 +2,13 @@ import "./jobsPage.css";
 
 import { useSelector, useDispatch } from "react-redux";
 import React, { useEffect, useRef, useState } from "react";
+
+import { Box } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
 
+import { capitalizeWords } from "../utils";
 import JobCard from "../components/JobCard";
-import Filters from "../components/Filters";
 import { fetchJobs } from "../features/jobs/jobsSlice";
-import { Box } from "@mui/material";
 
 const LIMIT = 10;
 
@@ -52,16 +53,14 @@ const JobsPage = () => {
                 .toLowerCase()
                 .includes(filters.location.toLowerCase()))) &&
           (!filters.roles.length ||
-            (job.jobRole && filters.roles.includes(job.jobRole))) &&
+            (job.jobRole &&
+              filters.roles.includes(capitalizeWords(job.jobRole)))) &&
           (filters.minBasePay === 0 ||
             (job.minJdSalary !== null && job.minJdSalary >= filters.minBasePay))
         );
       })
     );
   }, [jobs, filters]);
-
-  // const filteredJobs = jobs;
-  // console.log(filteredJobs);
 
   return (
     <Box className="jobsPage">
