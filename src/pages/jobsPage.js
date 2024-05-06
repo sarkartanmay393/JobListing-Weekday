@@ -1,6 +1,5 @@
 import "./jobsPage.css";
 
-import { useMediaQuery } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
 import React, { useEffect, useRef, useState } from "react";
 
@@ -34,42 +33,60 @@ const JobsPage = () => {
   };
 
   useEffect(() => {
+    // console.log("fetching jobs", { limit: LIMIT, offset });
     dispatch(fetchJobs({ limit: LIMIT, offset }));
   }, [offset]);
 
   useEffect(() => {
-    setFilteredJobs(
-      jobs.filter((job) => {
-        return (
-          (filters.minExperience === "" ||
-            (job.minExp !== null &&
-              job.minExp >= parseInt(filters.minExperience, 10))) &&
-          (!filters.locationType.length ||
-            filters.locationType.includes(
-              job.location === "remote" ? "Remote" : "Onsite"
-            )) &&
-          (!filters.companyName ||
-            (job.companyName &&
-              job.companyName
-                .toLowerCase()
-                .includes(filters.companyName.toLowerCase()))) &&
-          (!filters.location ||
-            (job.location &&
-              job.location
-                .toLowerCase()
-                .includes(filters.location.toLowerCase()))) &&
-          (!filters.roles.length ||
-            (job.jobRole &&
-              filters.roles.includes(capitalizeWords(job.jobRole)))) &&
-          (filters.minBasePay === "" ||
-            (job.minJdSalary !== null &&
-              job.minJdSalary >=
-                parseInt(
-                  filters.minBasePay.substring(0, filters.minBasePay.length - 1)
-                )))
-        );
-      })
-    );
+    const filteredJobs = jobs.filter((job) => {
+      const {
+        minExperience,
+        locationType,
+        companyName,
+        location,
+        roles,
+        minBasePay,
+      } = filters;
+
+      const isMinExperienceValid =
+        minExperience === "" ||
+        (job.minExp !== null && job.minExp >= parseInt(minExperience, 10));
+
+      const isLocationTypeValid =
+        !locationType.length ||
+        locationType.includes(job.location === "remote" ? "Remote" : "Onsite");
+
+      const isCompanyNameValid =
+        !companyName ||
+        (job.companyName &&
+          job.companyName.toLowerCase().includes(companyName.toLowerCase()));
+
+      const isLocationValid =
+        !location ||
+        (job.location &&
+          job.location.toLowerCase().includes(location.toLowerCase()));
+
+      const isRolesValid =
+        !roles.length ||
+        (job.jobRole && roles.includes(capitalizeWords(job.jobRole)));
+
+      const isMinBasePayValid =
+        minBasePay === "" ||
+        (job.minJdSalary !== null &&
+          job.minJdSalary >=
+            parseInt(minBasePay.substring(0, minBasePay.length - 1)));
+
+      return (
+        isMinExperienceValid &&
+        isLocationTypeValid &&
+        isCompanyNameValid &&
+        isLocationValid &&
+        isRolesValid &&
+        isMinBasePayValid
+      );
+    });
+
+    setFilteredJobs(filteredJobs);
   }, [jobs, filters]);
 
   return (
@@ -107,7 +124,7 @@ const JobsPage = () => {
           marginY: "16px",
         }}
       >
-        {status === "loading" && <CircularProgress />}
+        {status === "loading" && <CircularProgress size="24px" />}
       </Box>
     </Box>
   );

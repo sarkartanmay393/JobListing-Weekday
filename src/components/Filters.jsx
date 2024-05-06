@@ -10,6 +10,7 @@ import MultipleSelectChip from "./inputs/MultipleSelect";
 
 import "./inputs/MultipleSelect.css";
 
+
 const Filters = () => {
   const dispatch = useDispatch();
   const filters = useSelector((state) => state.jobs.filters);

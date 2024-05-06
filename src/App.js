@@ -2,9 +2,10 @@ import "./App.css";
 
 import React, { lazy, Suspense } from "react";
 import Box from "@mui/material/Box";
+import CircularProgress from "@mui/material/CircularProgress";
 
+import Filters from "./components/Filters";
 const JobsPage = lazy(() => import("./pages/jobsPage"));
-const Filters = lazy(() => import("./components/Filters"));
 
 export default function App() {
   return (
@@ -14,8 +15,14 @@ export default function App() {
         <h3 style={styles.tab}>Applied Jobs</h3>
         <h3 style={styles.activeTab}>Search Jobs</h3>
       </Box>
-      <Suspense fallback={<div>Loading...</div>}>
-        <Filters />
+      <Filters />
+      <Suspense
+        fallback={
+          <div style={{ marginTop: "12px" }}>
+            <CircularProgress size="24px" />
+          </div>
+        }
+      >
         <JobsPage />
       </Suspense>
     </Box>

@@ -27,7 +27,7 @@
 
 .job-card-content-content {
   width: 100%;
-  align-items: center;
+  /* align-items: center; */
 
   border: 0px solid black;
 }
